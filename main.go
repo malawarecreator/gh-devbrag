@@ -36,7 +36,7 @@ func main() {
 	if *setserverURL && *ssurl != "" {
 		
 		serverurl = *ssurl
-	}
+	} 
 	if (*search && *name != "") {
 		queryName := url.QueryEscape(*name)
 		resp, err := http.Get(serverurl + "/search?name=" + queryName)
@@ -53,9 +53,7 @@ func main() {
 		}
 
 		fmt.Println(string(body))
-	}
-
-	if *publish && *usrname != "" && *description != "" && *favlang != "" && *recentContributions != "" {
+	} else if *publish && *usrname != "" && *description != "" && *favlang != "" && *recentContributions != "" {
 		data := map[string]string{
 			"username" : *usrname,
 			"description": *description,
@@ -89,9 +87,7 @@ func main() {
 			return
 		}
 
-	}
-
-	if *like && *likename != "" {
+	} else if *like && *likename != "" {
 		queryName := url.QueryEscape(*likename)
 		resp, err := http.Get(serverurl + "/like?name=" + queryName)
 		if err != nil {
@@ -107,6 +103,8 @@ func main() {
 		}
 
 		fmt.Println(string(body))
+	} else {
+		fmt.Println("devbrag: Flex for no reason")
 	}
 }
 
